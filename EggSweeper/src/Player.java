@@ -59,22 +59,20 @@ public class Player implements Serializable {
 		System.out.println(String.format("Found %d items", board.countAdjacentItems(xIndex, yIndex)));
 		GridSpace space = board.getSpace(xIndex, yIndex);
 		// if space has already been checked do not continue
-		if (space.getIsCovered() == false) {
-			System.out.println("Already checked there!");
-			System.out.println("Score: " + Integer.toString(score));
-			System.out.println("Remaining clicks: " + Integer.toString(board.getClicks()));
-			return Item.ALREADYCHECKED;
-		}
-		else {
+		Item item = space.getItem();
+		if(space.getIsCovered()){
 			// take a turn
 			space.setIsCovered(false);
 			board.decClicks();
 		}
-		Item item = space.getItem();
+		else {
+			return item;
+		}
+		
 		switch (item) {
 			case EGG:
 				// up player score
-				score++;;
+				score++;
 				eggs++;
 				if (board.getClicks() == 0) {
 					System.out.println("Out of clicks!");

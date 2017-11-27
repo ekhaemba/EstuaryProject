@@ -381,6 +381,8 @@ public class Controller implements Serializable, ActionListener {
 		        	return;
 		        }
 		        else {
+		        	GridSpace space = gameBoard.getSpace(xIndex, yIndex);
+		        	boolean wasCovered = space.getIsCovered();
 		        	Item item = player.checkSpace(xIndex, yIndex, gameBoard);
 		        	animation.addHole(gridIndex[2], gridIndex[3], gridIndex[4], gridIndex[5]);
 		        	
@@ -431,15 +433,15 @@ public class Controller implements Serializable, ActionListener {
 	        		JLabel ateSome = null;
 	        		Font ateFont = new Font("Arial", Font.PLAIN, 40);
 	        		
-	        		if (item == Item.EGG) {
+	        		if (!wasCovered) {
+		        		ateSome = new JLabel("Already checked there.");
+		        		ateSome.setFont(ateFont);
+		        		boardPanel.add(ateSome, constraints);
+	        		}
+	        		else if (item == Item.EGG) {
 		        		ateSome = new JLabel("You Found and egg!!!");
 		        		ateSome.setFont(ateFont);
 		        		frame.getContentPane().add(ateSome, 0);
-		        		boardPanel.add(ateSome, constraints);
-	        		}
-	        		else if (item == Item.ALREADYCHECKED) {
-		        		ateSome = new JLabel("Already checked there.");
-		        		ateSome.setFont(ateFont);
 		        		boardPanel.add(ateSome, constraints);
 	        		}
 	        		else {

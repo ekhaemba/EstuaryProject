@@ -155,7 +155,7 @@ public class Board implements Serializable {
 							continue;
 						GridSpace space = getSpace(xIndex + i, yIndex + j);
 						Item thisItem = space.getItem();
-						if( thisItem != Item.EMPTY && thisItem != Item.ALREADYCHECKED)
+						if( thisItem != Item.EMPTY && space.getIsCovered())
 							count++;
 					}
 				}
@@ -257,7 +257,7 @@ public class Board implements Serializable {
 							continue;
 						GridSpace space = getSpace(targetX, targetY);
 						Item thisItem = space.getItem();
-						if( thisItem != Item.EMPTY && thisItem != Item.ALREADYCHECKED && space.getIsCovered())
+						if( thisItem != Item.EMPTY && space.getIsCovered())
 							adjDirections.add(calculateDirection(xIndex, yIndex, targetX, targetY));
 					}
 				}
